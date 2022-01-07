@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AplicacaoEscolas.WebApi", "AplicacaoEscolas.WebApi\AplicacaoEscolas.WebApi.csproj", "{CB6B8193-4B57-4A41-BA77-44F7EC46EF4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AplicacaoEscolas.WebApi", "AplicacaoEscolas.WebApi\AplicacaoEscolas.WebApi.csproj", "{CB6B8193-4B57-4A41-BA77-44F7EC46EF4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
