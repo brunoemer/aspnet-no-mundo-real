@@ -10,13 +10,13 @@ namespace AplicacaoCinema.Domain
 
         private Filme(Guid id, string titulo, string sinopse, int duracao)
         {
-            Id = id;
+            Id = id.ToString();
             Titulo = titulo;
             Sinopse = sinopse;
             Duracao = duracao;
         }
 
-        public Guid Id { get; }
+        public string Id { get; }
         public string Titulo { get; }
         public string Sinopse { get; }
         public int Duracao { get; }

@@ -30,7 +30,7 @@ namespace AplicacaoCinema.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult RecuperarPorId(Guid id)
+        public IActionResult RecuperarPorId(string id)
         {
             return Ok(_filmeRepositorio.RecuperarPorId(id));
         }

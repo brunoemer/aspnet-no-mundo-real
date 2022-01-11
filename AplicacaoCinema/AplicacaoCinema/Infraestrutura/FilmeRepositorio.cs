@@ -20,7 +20,7 @@ namespace AplicacaoCinema.WebApi.Infraestrutura
 
         }
 
-        public Filme RecuperarPorId(Guid id)
+        public Filme RecuperarPorId(string id)
         {
             return _dbContext
                 .Filme
