@@ -30,9 +30,34 @@ namespace AplicacaoCinema.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult RecuperarPorId(string id)
+        public IActionResult RecuperarPorId(Guid id)
         {
-            return Ok(_filmeRepositorio.RecuperarPorId(id));
+            var filme = _filmeRepositorio.RecuperarPorId(id);
+            if (filme == null)
+                return NotFound();
+            return Ok(filme);
+            
+        }
+
+        /**
+        [HttpPut("{id}")]
+        public IActionResult Alterar(Guid id)
+        {
+            try
+            {
+                return Ok(_filmeRepositorio.RecuperarPorId(id));
+            }
+            catch
+            {
+                return NotFound();
+            }
+            
+        }
+        */
+        [HttpGet()]
+        public IActionResult RecuperarTodos()
+        {
+            return Ok(_filmeRepositorio.RecuperarTodos());
         }
 
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using AplicacaoCinema.Domain;
 
@@ -8,6 +9,7 @@ namespace AplicacaoCinema.WebApi.Infraestrutura
     public sealed class FilmeRepositorio
     {
         private readonly FilmeDbContext _dbContext;
+        
 
         public FilmeRepositorio(FilmeDbContext dbContext)
         {
@@ -20,11 +22,18 @@ namespace AplicacaoCinema.WebApi.Infraestrutura
 
         }
 
-        public Filme RecuperarPorId(string id)
+        public Filme RecuperarPorId(Guid id)
         {
             return _dbContext
                 .Filme
                 .FirstOrDefault(c => c.Id == id);
+        }
+
+        public IEnumerable<Filme> RecuperarTodos()
+        {
+            return _dbContext
+                   .Filme
+                   .AsParallel<Filme>();
         }
 
         public void Commit()
