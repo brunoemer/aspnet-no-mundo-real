@@ -14,6 +14,7 @@ using AplicacaoCinema.WebApi.Infraestrutura;
 using IBM.EntityFrameworkCore;
 using IBM.EntityFrameworkCore.Storage.Internal;
 using AplicacaoCinema.WebApi.Hosting.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace AplicacaoCinema
 {
@@ -32,10 +33,16 @@ namespace AplicacaoCinema
             services.AddControllers();
             services.AddDapper();
             services.AddScoped<FilmeRepositorio>();
-            
-            services.AddDbContext<FilmeDbContext>(
+
+            /**services.AddDbContext<FilmeDbContext>(
                 o => {
                     o.UseDb2("name=ConnectionStrings:CinemaIfx", p => p.SetServerInfo(IBMDBServerType.IDS, IBMDBServerVersion.IDS_12_10_2000));
+                });*/
+
+            services.AddDbContext<FilmeDbContext>(
+                o =>
+                {
+                    o.UseSqlServer("name=ConnectionStrings:CinemaSQLServer");
                 });
         }
 
