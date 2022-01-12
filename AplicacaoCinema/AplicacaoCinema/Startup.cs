@@ -33,11 +33,7 @@ namespace AplicacaoCinema
             services.AddControllers();
             services.AddDapper();
             services.AddScoped<FilmeRepositorio>();
-
-            /**services.AddDbContext<FilmeDbContext>(
-                o => {
-                    o.UseDb2("name=ConnectionStrings:CinemaIfx", p => p.SetServerInfo(IBMDBServerType.IDS, IBMDBServerVersion.IDS_12_10_2000));
-                });*/
+            services.AddScoped<SalaRepositorio>();
 
             services.AddDbContext<FilmeDbContext>(
                 o =>

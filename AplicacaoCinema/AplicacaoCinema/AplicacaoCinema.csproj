@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Hosting\Configuration\" />
-    <Folder Include="Models\" />
 
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.12">
