@@ -40,6 +40,11 @@ namespace AplicacaoCinema
                 {
                     o.UseSqlServer("name=ConnectionStrings:CinemaSQLServer");
                 });
+            services.AddDbContext<SalaDbContext>(
+                o =>
+                {
+                    o.UseSqlServer("name=ConnectionStrings:CinemaSQLServer");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
