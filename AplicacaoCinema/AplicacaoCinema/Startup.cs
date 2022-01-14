@@ -34,17 +34,14 @@ namespace AplicacaoCinema
             services.AddDapper();
             services.AddScoped<FilmeRepositorio>();
             services.AddScoped<SalaRepositorio>();
+            services.AddScoped<SessaoRepositorio>();
 
-            services.AddDbContext<FilmeDbContext>(
+            services.AddDbContext<CinemaDbContext>(
                 o =>
                 {
                     o.UseSqlServer("name=ConnectionStrings:CinemaSQLServer");
                 });
-            services.AddDbContext<SalaDbContext>(
-                o =>
-                {
-                    o.UseSqlServer("name=ConnectionStrings:CinemaSQLServer");
-                });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

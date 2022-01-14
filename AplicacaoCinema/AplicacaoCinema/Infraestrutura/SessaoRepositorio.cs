@@ -8,39 +8,43 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AplicacaoCinema.WebApi.Infraestrutura
 {
-    public sealed class SalaRepositorio
+    public sealed class SessaoRepositorio
     {
         private readonly CinemaDbContext _cinemaDbContext;
         private readonly IConfiguration _configuracao;
 
-        public SalaRepositorio(CinemaDbContext cinemadbContext, IConfiguration configuracao)
+        public SessaoRepositorio(CinemaDbContext cinemadbContext, IConfiguration configuracao)
         {
             _cinemaDbContext = cinemadbContext;
             _configuracao = configuracao;
         }
 
-        public async Task InserirAsync(Sala novaSala, CancellationToken cancellationToken = default)
+        public async Task InserirAsync(Sessao novaSessao, CancellationToken cancellationToken = default)
         {
-            await _cinemaDbContext.AddAsync(novaSala, cancellationToken);
+            await _cinemaDbContext.AddAsync(novaSessao, cancellationToken);
 
         }
 
-        public void Alterar(Sala sala)
+        public void Alterar(Sessao sessao)
         {
             // Nada a fazer EF CORE fazer o Tracking da Entidade quando recuperamos a mesma
         }
 
-        public async Task<IEnumerable<Sala>> RecuperarTodosAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Sessao>> RecuperarTodosAsync(CancellationToken cancellationToken = default)
         {
             return await _cinemaDbContext
-                .Sala
+                .Sessao
+                .Include(c => c.FilmeId)
+                .Include(c => c.SalaId)
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<Sala> RecuperarPorIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<Sessao> RecuperarPorIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _cinemaDbContext
-                .Sala
+                .Sessao
+                .Include(c => c.FilmeId)
+                .Include(c => c.SalaId)
                 .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
         }
 

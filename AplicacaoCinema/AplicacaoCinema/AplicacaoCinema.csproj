@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NovaPasta\**" />
+    <Content Remove="NovaPasta\**" />
+    <EmbeddedResource Remove="NovaPasta\**" />
+    <None Remove="NovaPasta\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Infraestrutura\LotacaoSessaoRepositorio.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Hosting\Configuration\" />
 
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />

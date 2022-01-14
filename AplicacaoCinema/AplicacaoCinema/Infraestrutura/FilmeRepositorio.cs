@@ -1,44 +1,54 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using AplicacaoCinema.Domain;
-
+using Microsoft.Extensions.Configuration;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AplicacaoCinema.WebApi.Infraestrutura
 {
     public sealed class FilmeRepositorio
     {
-        private readonly FilmeDbContext _dbContext;
-        
+        private readonly CinemaDbContext _cinemaDbContext;
+        private readonly IConfiguration _configuracao;
 
-        public FilmeRepositorio(FilmeDbContext dbContext)
+        public FilmeRepositorio(CinemaDbContext cinemadbContext, IConfiguration configuracao)
         {
-            _dbContext = dbContext;
+            _cinemaDbContext = cinemadbContext;
+            _configuracao = configuracao;
         }
 
-        public void Inserir(Filme novoFilme)
+        public async Task InserirAsync(Filme novoFilme, CancellationToken cancellationToken = default)
         {
-            _dbContext.Filme.Add(novoFilme);
+            await _cinemaDbContext.AddAsync(novoFilme, cancellationToken);
 
         }
 
-        public Filme RecuperarPorId(Guid id)
+        public void Alterar(Filme filme)
         {
-            return _dbContext
+            // Nada a fazer EF CORE fazer o Tracking da Entidade quando recuperamos a mesma
+        }
+
+        public async Task<IEnumerable<Filme>> RecuperarTodosAsync(CancellationToken cancellationToken = default)
+        {
+            return await _cinemaDbContext
                 .Filme
-                .FirstOrDefault(c => c.Id == id);
+                .ToListAsync(cancellationToken);
         }
 
-        public IEnumerable<Filme> RecuperarTodos()
+        public async Task<Filme> RecuperarPorIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return _dbContext
-                   .Filme
-                   .AsParallel<Filme>();
+            return await _cinemaDbContext
+                .Filme
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
         }
 
-        public void Commit()
+
+
+        public async Task CommitAsync(CancellationToken cancellationToken = default)
         {
-            _dbContext.SaveChanges();
+            await _cinemaDbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
