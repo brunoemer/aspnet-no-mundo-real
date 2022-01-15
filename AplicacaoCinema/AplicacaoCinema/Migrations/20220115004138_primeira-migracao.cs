@@ -7,8 +7,12 @@ namespace AplicacaoCinema.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "dbo");
+
             migrationBuilder.CreateTable(
                 name: "filme",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -25,6 +29,7 @@ namespace AplicacaoCinema.Migrations
 
             migrationBuilder.CreateTable(
                 name: "sala",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -40,6 +45,7 @@ namespace AplicacaoCinema.Migrations
 
             migrationBuilder.CreateTable(
                 name: "sessao",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -47,7 +53,7 @@ namespace AplicacaoCinema.Migrations
                     hora_inicial = table.Column<string>(type: "varchar(5)", nullable: false),
                     SalaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FilmeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    preco = table.Column<double>(type: "double", nullable: false),
+                    preco = table.Column<decimal>(type: "decimal(12,2)", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataUltimaAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Hash = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -58,12 +64,14 @@ namespace AplicacaoCinema.Migrations
                     table.ForeignKey(
                         name: "FK_sessao_filme_FilmeId",
                         column: x => x.FilmeId,
+                        principalSchema: "dbo",
                         principalTable: "filme",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_sessao_sala_SalaId",
                         column: x => x.SalaId,
+                        principalSchema: "dbo",
                         principalTable: "sala",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -74,8 +82,7 @@ namespace AplicacaoCinema.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SessaoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CompradoEm = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    SessaoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,6 +90,7 @@ namespace AplicacaoCinema.Migrations
                     table.ForeignKey(
                         name: "FK_Ingresso_sessao_SessaoId",
                         column: x => x.SessaoId,
+                        principalSchema: "dbo",
                         principalTable: "sessao",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -95,11 +103,13 @@ namespace AplicacaoCinema.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_sessao_FilmeId",
+                schema: "dbo",
                 table: "sessao",
                 column: "FilmeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_sessao_SalaId",
+                schema: "dbo",
                 table: "sessao",
                 column: "SalaId");
         }
@@ -110,13 +120,16 @@ namespace AplicacaoCinema.Migrations
                 name: "Ingresso");
 
             migrationBuilder.DropTable(
-                name: "sessao");
+                name: "sessao",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "filme");
+                name: "filme",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "sala");
+                name: "sala",
+                schema: "dbo");
         }
     }
 }

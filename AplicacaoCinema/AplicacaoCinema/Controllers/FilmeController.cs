@@ -50,9 +50,9 @@ namespace AplicacaoCinema.WebApi.Controllers
 
 
         [HttpGet()]
-        public async Task<IActionResult> RecuperarTodosAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> RecuperarTodosAsync(CancellationToken cancellationToken)
         {
-            var filme = await _filmeRepositorio.RecuperarPorIdAsync(id, cancellationToken);
+            var filme = await _filmeRepositorio.RecuperarTodosAsync( cancellationToken);
 
             return Ok(filme);
         }

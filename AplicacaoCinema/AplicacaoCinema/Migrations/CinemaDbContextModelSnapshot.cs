@@ -46,7 +46,7 @@ namespace AplicacaoCinema.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("filme");
+                    b.ToTable("filme", "dbo");
                 });
 
             modelBuilder.Entity("AplicacaoCinema.Domain.Ingresso", b =>
@@ -54,9 +54,6 @@ namespace AplicacaoCinema.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CompradoEm")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("SessaoId")
                         .HasColumnType("uniqueidentifier");
@@ -91,7 +88,7 @@ namespace AplicacaoCinema.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sala");
+                    b.ToTable("sala", "dbo");
                 });
 
             modelBuilder.Entity("AplicacaoCinema.Domain.Sessao", b =>
@@ -119,8 +116,8 @@ namespace AplicacaoCinema.Migrations
                         .HasColumnType("varchar(5)")
                         .HasColumnName("hora_inicial");
 
-                    b.Property<double>("Preco")
-                        .HasColumnType("double")
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(12,2)")
                         .HasColumnName("preco");
 
                     b.Property<Guid>("SalaId")
@@ -137,7 +134,7 @@ namespace AplicacaoCinema.Migrations
 
                     b.HasIndex("SalaId");
 
-                    b.ToTable("sessao");
+                    b.ToTable("sessao", "dbo");
                 });
 
             modelBuilder.Entity("AplicacaoCinema.Domain.Ingresso", b =>

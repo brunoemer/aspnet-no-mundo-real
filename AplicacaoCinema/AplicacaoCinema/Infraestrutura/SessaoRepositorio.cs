@@ -34,11 +34,8 @@ namespace AplicacaoCinema.WebApi.Infraestrutura
         {
             return await _cinemaDbContext
                 .Sessao
-                .Include(c => c.FilmeId)
-                .Include(c => c.SalaId)
                 .ToListAsync(cancellationToken);
         }
-
         public async Task<Sessao> RecuperarPorIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _cinemaDbContext

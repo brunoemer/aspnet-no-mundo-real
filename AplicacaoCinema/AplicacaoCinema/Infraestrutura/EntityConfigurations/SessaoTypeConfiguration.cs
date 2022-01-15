@@ -11,7 +11,7 @@ namespace AplicacaoCinema.Infraestrutura.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Sessao> builder)
         {
-            builder.ToTable("sessao");
+            builder.ToTable("sessao", "dbo");
             builder.HasKey(c => c.Id);
             builder.Property(c => c.DiaSemana)
                 .HasConversion(new EnumToStringConverter<EDiaSemana>())
@@ -39,7 +39,7 @@ namespace AplicacaoCinema.Infraestrutura.EntityConfigurations
                 .PrincipalToDependent
                 .SetField("_ingresso");
             builder.Property(c => c.Preco)
-                .HasColumnType("double")
+                .HasColumnType("decimal(12,2)")
                 .HasColumnName("preco");
 
             builder.Property("_HashConcorrencia")

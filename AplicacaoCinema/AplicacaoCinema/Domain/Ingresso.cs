@@ -20,7 +20,6 @@ namespace AplicacaoCinema.Domain
 
         public Guid Id { get; set; }
         public Guid SessaoId { get; set; }
-        public DateTime CompradoEm { get; set; }
 
         public static Ingresso CriarVazio() =>
                 new Ingresso(Guid.Parse(""), Guid.Parse(""));

@@ -48,9 +48,9 @@ namespace AplicacaoCinema.WebApi.Infraestrutura
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new SessaoTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FilmeTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SalaTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SessaoTypeConfiguration());
 
         }
 
