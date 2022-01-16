@@ -40,10 +40,18 @@ namespace AplicacaoCinema.WebApi.Infraestrutura
         {
             return await _cinemaDbContext
                 .Sessao
-                .Include(c => c.FilmeId)
-                .Include(c => c.SalaId)
                 .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
         }
+
+        public async Task<Sessao> RecuperarTodosIngressosAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            return await _cinemaDbContext
+                .Sessao
+                .Include(c => c.Ingressos)
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+        }
+
+        
 
 
 

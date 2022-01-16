@@ -38,20 +38,22 @@ namespace AplicacaoCinema.Domain
         public double Preco { get; }
 
 
-        public void AdicionarIngresso(Ingresso ingresso)
-        {
-            _ingresso.Add(ingresso);
-        }
+       
 
-        public void AdicionarIngresso(Sessao sessao)
+        public Ingresso AdicionarIngresso(Sessao sessao)
         {
-            //_ingressos.Add(new Ingresso(Guid.NewGuid(), sessao.Id));
+            var ingresso = Ingresso.CriarIngresso(Guid.NewGuid(), sessao);
+
+            _ingresso.Add(ingresso);
+
+            return ingresso;
         }
 
 
         public static Result<Sessao> Criar(EDiaSemana diaSemana, Horario horaInicial, Guid salaId, Guid filmeId, double preco)
         {
-            if (!Enum.IsDefined(diaSemana))
+            var _diaSemana = EDiaSemana.Quarta;
+            if (!Enum.IsDefined(_diaSemana))
                 return Result.Failure<Sessao>("É preciso definir um dia da semana");
             if (double.IsNaN(preco))
                 return Result.Failure<Sessao>("O preço da sessão é um campo obrigatório");
@@ -60,11 +62,11 @@ namespace AplicacaoCinema.Domain
             return sessao;
         }
 
-        public bool VerificarLotacaoSessao(Sessao sessao)
+        public int VerificarLotacaoSessao(IEnumerable<Ingresso> Ingressos)
         {
+            var lotacao = Ingressos.Count();
+            return lotacao;
 
-
-            return true;
         }
 
 

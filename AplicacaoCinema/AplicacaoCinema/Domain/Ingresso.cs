@@ -23,5 +23,12 @@ namespace AplicacaoCinema.Domain
 
         public static Ingresso CriarVazio() =>
                 new Ingresso(Guid.Parse(""), Guid.Parse(""));
+        public static Ingresso CriarIngresso(Guid id, Sessao sessao)
+        {
+            Ingresso _ingresso = new Ingresso(id, sessao.Id);
+            return _ingresso;
+        }
+
+
     }
 }

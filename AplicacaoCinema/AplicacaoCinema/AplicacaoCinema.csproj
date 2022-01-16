@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <Compile Remove="Infraestrutura\LotacaoSessaoRepositorio.cs" />
+    <Compile Remove="Infraestrutura\Mappers\Class.cs" />
+    <Compile Remove="Models\Class.cs" />
   </ItemGroup>
 
   <ItemGroup>

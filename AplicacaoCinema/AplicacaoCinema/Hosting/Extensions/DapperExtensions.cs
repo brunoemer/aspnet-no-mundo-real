@@ -9,6 +9,8 @@ namespace AplicacaoCinema.WebApi.Hosting.Extensions
         public static IServiceCollection AddDapper(this IServiceCollection serviceCollection)
         {
             SqlMapper.AddTypeHandler(new GuidTypeHandler());
+            SqlMapper.AddTypeHandler(new HorarioTypeHandler());
+
             return serviceCollection;
         }
     }
