@@ -31,7 +31,7 @@ namespace AplicacaoEscolas.WebApi.Controllers
 
         }
 
-        // [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> InserirAsync([FromBody] NovaSessaoInputModel sessaoInputModel, CancellationToken cancellationToken)
         {
 
@@ -50,8 +50,8 @@ namespace AplicacaoEscolas.WebApi.Controllers
             await _sessaoRepositorio.CommitAsync(cancellationToken);
             return CreatedAtAction("RecuperarPorId", new { id = sessao.Value.Id }, sessao.Value.Id);
         }
-
-        [HttpPost]
+       
+        [HttpPost("ingresso")]
         public async Task<IActionResult> ComprarIngressoAsync([FromBody] NovoIngressoInputModel ingressoInputModel, CancellationToken cancellationToken)
         {
             if (!Guid.TryParse(ingressoInputModel.SessaoId, out var _sessaoId))
@@ -118,9 +118,20 @@ namespace AplicacaoEscolas.WebApi.Controllers
         [HttpGet()]
         public async Task<IActionResult> RecuperarTodosAsync(CancellationToken cancellationToken)
         {
+            List<SessaoDTO> _sessaoDTO = new List<SessaoDTO>();
+            
+            List<Sessao> _sessoes = new List<Sessao>();
+
             var sessoes = await _sessaoRepositorio.RecuperarTodosAsync(cancellationToken);
 
-            return Ok(sessoes);
+            _sessoes = sessoes.ToList();
+
+            for (var i = 0; i < _sessoes.Count; i++){
+                var _filme = await _filmeRepositorio.RecuperarPorIdAsync(_sessoes.ElementAt(i).FilmeId, cancellationToken);
+                var _sala = await _salaRepositorio.RecuperarPorIdAsync(_sessoes.ElementAt(i).SalaId, cancellationToken);
+                _sessaoDTO.Add(new SessaoDTO(_sessoes.ElementAtOrDefault(i), _sala, _filme));
+            }
+            return Ok(_sessaoDTO);
         }
 
     }
