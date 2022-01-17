@@ -31,10 +31,10 @@ namespace AplicacaoEscolas.WebApi.Controllers
 
         }
 
-       // [HttpPost]
+        // [HttpPost]
         public async Task<IActionResult> InserirAsync([FromBody] NovaSessaoInputModel sessaoInputModel, CancellationToken cancellationToken)
         {
-          
+
             var _horaInicial = Horario.Criar(sessaoInputModel.horaInicial);
             if (_horaInicial.IsFailure)
                 return BadRequest(_horaInicial.Error);
@@ -43,7 +43,7 @@ namespace AplicacaoEscolas.WebApi.Controllers
             if (!Guid.TryParse(sessaoInputModel.SalaId, out var _salaId))
                 return BadRequest("Id sa sala é inválido");
 
-            var sessao = Sessao.Criar( (EDiaSemana)sessaoInputModel.eDiaSemana , _horaInicial.Value, _salaId, _filmeId, sessaoInputModel.preco);
+            var sessao = Sessao.Criar((EDiaSemana)sessaoInputModel.eDiaSemana, _horaInicial.Value, _salaId, _filmeId, sessaoInputModel.preco);
             if (sessao.IsFailure)
                 return BadRequest(sessao.Error);
             await _sessaoRepositorio.InserirAsync(sessao.Value, cancellationToken);
@@ -57,20 +57,19 @@ namespace AplicacaoEscolas.WebApi.Controllers
             if (!Guid.TryParse(ingressoInputModel.SessaoId, out var _sessaoId))
                 return BadRequest("Id de filme inválido");
             var _sessao = await _sessaoRepositorio.RecuperarPorIdAsync(_sessaoId, cancellationToken);
-
             
             List<IngressoDTO> _ingressosDTO = new List<IngressoDTO>();
-            
+
             var _sala = await _salaRepositorio.RecuperarPorIdAsync(_sessao.SalaId);
-            
+
             var _filme = await _filmeRepositorio.RecuperarPorIdAsync(_sessao.FilmeId, cancellationToken);
-            
+
             _sessao = await _sessaoRepositorio.RecuperarTodosIngressosAsync(_sessaoId);
 
             int _ingressosSolicitados = ingressoInputModel.quantidadeIngressos;
-            
+
             int _lugaresOcupados = _sessao.VerificarLotacaoSessao(_sessao.Ingressos);
-            
+
             int _lotacaoMaximaSala = _sala.QuantidadeLugares;
 
             int _lugaresDisponiveis = _lotacaoMaximaSala - _lugaresOcupados;
@@ -81,16 +80,13 @@ namespace AplicacaoEscolas.WebApi.Controllers
 
             if (_lugaresDisponiveis > _ingressosSolicitados)
             {
-                  for (int i = 1; i <= ingressoInputModel.quantidadeIngressos; i++)
-                  {
+                for (int i = 1; i <= ingressoInputModel.quantidadeIngressos; i++)
+                {
 
-                      _sessao.Ingressos.Append(_sessao.AdicionarIngresso(_sessao));
-                     
+                    _sessao.AdicionarIngresso(_sessao);
+                    _ingressosDTO.Add(new IngressoDTO(_sessao, _sala, _filme));
 
-                  }
-                
-                return Ok(_sessao);
-
+                }
 
             }
             else
@@ -98,7 +94,7 @@ namespace AplicacaoEscolas.WebApi.Controllers
                 return Ok("Quantidade indisponível. Quantidade restante:" + _lugaresDisponiveis);
             }
             _sessaoRepositorio.Alterar(_sessao);
-            return OK((IActionResult)_ingressosDTO);
+            return Ok(_ingressosDTO);
 
         }
 

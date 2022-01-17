@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AplicacaoCinema.Domain;
 using Microsoft.EntityFrameworkCore;
 using AplicacaoCinema.Infraestrutura.EntityConfigurations;
+using AplicacaoCinema.WebApi.Infraestrutura.EntityConfigurations;
 
 namespace AplicacaoCinema.WebApi.Infraestrutura
 {
@@ -51,6 +52,7 @@ namespace AplicacaoCinema.WebApi.Infraestrutura
             modelBuilder.ApplyConfiguration(new FilmeTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SalaTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SessaoTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new IngressoTypeConfiguration());
 
         }
 

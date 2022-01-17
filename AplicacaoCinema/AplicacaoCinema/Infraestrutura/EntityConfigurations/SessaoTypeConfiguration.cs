@@ -39,7 +39,7 @@ namespace AplicacaoCinema.Infraestrutura.EntityConfigurations
                 .PrincipalToDependent
                 .SetField("_ingresso");
             builder.Property(c => c.Preco)
-                .HasColumnType("decimal(12,2)")
+                .HasColumnType("decimal")
                 .HasColumnName("preco");
 
             builder.Property("_HashConcorrencia")

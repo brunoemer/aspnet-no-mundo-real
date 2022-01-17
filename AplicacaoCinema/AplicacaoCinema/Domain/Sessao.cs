@@ -11,7 +11,7 @@ namespace AplicacaoCinema.Domain
 {
     public sealed class Sessao
     {
-        
+
         private IList<Ingresso> _ingresso;
         private string _HashConcorrencia;
         private Sessao() { }
@@ -38,16 +38,8 @@ namespace AplicacaoCinema.Domain
         public double Preco { get; }
 
 
-       
 
-        public Ingresso AdicionarIngresso(Sessao sessao)
-        {
-            var ingresso = Ingresso.CriarIngresso(Guid.NewGuid(), sessao);
 
-            _ingresso.Add(ingresso);
-
-            return ingresso;
-        }
 
 
         public static Result<Sessao> Criar(EDiaSemana diaSemana, Horario horaInicial, Guid salaId, Guid filmeId, double preco)
@@ -69,18 +61,42 @@ namespace AplicacaoCinema.Domain
 
         }
 
-
-
-        private void AtualizarHashConcorrencia()
+        public Ingresso AdicionarIngresso(Sessao sessao)
         {
-            using var hash = MD5.Create();
-            var data = hash.ComputeHash(
-                Encoding.UTF8.GetBytes(
-                    $"{Id}{DiaSemana}{HoraInicial}{SalaId}{FilmeId}{Preco}"));
-            var sBuilder = new StringBuilder();
-            foreach (var tbyte in data)
-                sBuilder.Append(tbyte.ToString("x2"));
-            _HashConcorrencia = sBuilder.ToString();
+            var ingresso = Ingresso.CriarIngresso(Guid.NewGuid(), sessao);
+
+            _ingresso.Add(ingresso);
+
+            return ingresso;
         }
+
+       
+
+    public void RemoverIngresso(IEnumerable<Guid> Ingresso)
+    {
+        //var ingresso = _ingresso.Where(c => Ingresso.Any(id => id == c.Id));
+        //   _ingresso.Remove(ingresso);
     }
+
+    /**public void AtualizarAgenda(Guid id, EDiaSemana diaSemana, Horario horaInicial, Horario horaFinal)
+    {
+        var agenda = _agenda.FirstOrDefault(c => c.Id == id);
+        if (agenda != null)
+            agenda = new Agenda(id, diaSemana, horaInicial, horaFinal);
+    }*/
+
+
+
+    private void AtualizarHashConcorrencia()
+    {
+        using var hash = MD5.Create();
+        var data = hash.ComputeHash(
+            Encoding.UTF8.GetBytes(
+                $"{Id}{DiaSemana}{HoraInicial}{SalaId}{FilmeId}{Preco}"));
+        var sBuilder = new StringBuilder();
+        foreach (var tbyte in data)
+            sBuilder.Append(tbyte.ToString("x2"));
+        _HashConcorrencia = sBuilder.ToString();
+    }
+}
 }

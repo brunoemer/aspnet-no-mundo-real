@@ -10,6 +10,7 @@ namespace AplicacaoCinema.Models
         public string SessaoId { get; set; }
         [Required(ErrorMessage = "A quantidade de ingressos é um campo obrigatório")]
         public int quantidadeIngressos { get; set; }
+
     }
 }
 

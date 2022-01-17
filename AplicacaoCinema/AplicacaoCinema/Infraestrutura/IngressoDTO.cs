@@ -10,18 +10,19 @@ namespace AplicacaoCinema.Infraestrutura
     {
         public IngressoDTO(Sessao sessao, Sala sala, Filme filme )
         {
-            eDiaSemana = sessao.DiaSemana;
-            HoraInicial = sessao.HoraInicial;
+            eDiaSemana = sessao.DiaSemana.ToString();
+            HoraInicial = sessao.HoraInicial.ToString();
             SalaExibicao = sala.Nome;
             NomeFilme = filme.Titulo;
             Preco = sessao.Preco;
 
         }
 
-        public EDiaSemana eDiaSemana { get; set; }
-        public Horario HoraInicial { get; set; }
-        public string SalaExibicao { get; set; }
         public string NomeFilme { get; set; }
+        public string SalaExibicao { get; set; }
+        public string eDiaSemana { get; set; }
+        public string HoraInicial { get; set; }
+                
         public double Preco { get; set; }
       }
 
